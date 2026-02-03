@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	color-scheme: dark;
+}
+
+body {
+	@apply bg-gray-950 text-gray-100;
+	font-synthesis-weight: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Component primitives */
+@layer components {
+	.btn {
+		@apply inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed;
+	}
+	.btn-primary {
+		@apply btn bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400;
+	}
+	.btn-ghost {
+		@apply btn bg-transparent hover:bg-gray-900/60;
+	}
+
+	.input {
+		@apply w-full px-3 py-2 rounded-md bg-gray-900 border border-gray-800 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-400;
+	}
+
+	.card {
+		@apply border border-gray-800 rounded-md p-4 bg-gray-900/40 shadow-sm;
+	}
+	.card-title {
+		@apply text-sm font-medium mb-2 text-gray-300;
+	}
+
+	.alert {
+		@apply px-3 py-2 rounded border text-sm;
+	}
+	.alert-danger { @apply alert bg-red-600/20 border-red-700 text-red-200; }
+	.alert-warn { @apply alert bg-yellow-600/20 border-yellow-700 text-yellow-200; }
+	.alert-info { @apply alert bg-blue-600/20 border-blue-700 text-blue-200; }
+
+	.progress {
+		@apply w-full h-2 bg-gray-800 rounded overflow-hidden;
+	}
+	.progress-bar { @apply h-full bg-indigo-500; }
+
+	.code-block {
+		@apply bg-gray-900 border border-gray-800 p-3 rounded text-sm overflow-auto;
+	}
+}
+
+/* Page-level tweaks */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background-color: rgb(31 41 55); border-radius: 8px; }
+::-webkit-scrollbar-track { background-color: rgb(17 24 39); }
+
+a { @apply text-gray-300; }
+a:hover { @apply text-white; }
