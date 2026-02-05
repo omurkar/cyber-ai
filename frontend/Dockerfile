@@ -2,7 +2,7 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 COPY frontend/package.json frontend/package-lock.json* frontend/pnpm-lock.yaml* ./
-RUN npm install
+RUN npm install --legacy-peer-deps
 COPY frontend ./
 RUN npm run build
 

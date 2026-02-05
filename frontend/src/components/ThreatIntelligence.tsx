@@ -62,8 +62,8 @@ export default function ThreatIntelligence() {
 			{vulnerabilities.length > 0 && (
 				<Card title={`Found ${vulnerabilities.length} Vulnerabilities`}>
 					<div className="space-y-3">
-						{vulnerabilities.map((vuln, index) => (
-							<div key={vuln.id || index} className="border border-gray-800 rounded p-3 bg-gray-900/40">
+					{vulnerabilities.map((vuln, index: number) => (
+						<div key={vuln.id || `vuln-${index}`} className="border border-gray-800 rounded p-3 bg-gray-900/40">
 								<div className="text-sm text-gray-400">{vuln.id || 'Unknown ID'}</div>
 								<div className="flex items-center gap-2">
 									<span className={`inline-block w-2 h-2 rounded-full ${
