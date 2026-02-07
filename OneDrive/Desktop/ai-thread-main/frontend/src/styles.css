@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --neon-cyan: #00f3ff;
+  --neon-purple: #bc00ff;
+  --neon-red: #ff0055;
+  --neon-green: #00ff9d;
+  --void-black: #050505;
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  @apply bg-[#050505] text-white;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: 
+    radial-gradient(circle at 50% 0%, #1a1a1a 0%, transparent 70%),
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
+}
+
+/* Cyberpunk Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-cyan);
+  box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+/* Glassmorphism & Neon Utilities */
+@layer components {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl transition-all duration-300;
+  }
+  
+  .glass-card:hover {
+    @apply border-white/20 bg-white/[0.07] shadow-[0_0_30px_rgba(0,243,255,0.1)];
+  }
+
+  .neon-text {
+    text-shadow: 0 0 10px currentColor;
+  }
+
+  .btn-cyber {
+    @apply relative overflow-hidden bg-transparent border border-[#00f3ff]/50 text-[#00f3ff] px-4 py-2 rounded-lg font-bold uppercase tracking-wider transition-all duration-300;
+  }
+  
+  .btn-cyber:hover {
+    @apply bg-[#00f3ff] text-black shadow-[0_0_20px_#00f3ff];
+  }
+
+  /* Custom Input Styling */
+  .input-cyber {
+    @apply bg-black/50 border border-white/10 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#00f3ff] focus:ring-1 focus:ring-[#00f3ff] transition-all;
+  }
+}
+
+/* Animations */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scanline::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 243, 255, 0.05) 51%, transparent 52%);
+  pointer-events: none;
+  animation: scanline 4s linear infinite;
+}

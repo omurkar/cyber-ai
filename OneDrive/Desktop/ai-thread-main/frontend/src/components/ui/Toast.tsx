@@ -1,0 +1,52 @@
+import { createContext, useContext, useRef, useState, ReactNode } from 'react'
+
+type ToastItem = { id: number, message: string, type?: 'info'|'warn'|'error', title?: string, description?: string }
+type ToastProps = { title?: string, description?: string, variant?: 'default' | 'destructive' }
+
+type ToastContextValue = {
+    show: (message: string, type?: ToastItem['type']) => void,
+    toast: (props: ToastProps) => void
+}
+
+const ToastContext = createContext<ToastContextValue | null>(null)
+
+export function useToast() {
+    const ctx = useContext(ToastContext)
+    if (!ctx) throw new Error('ToastProvider missing')
+    return ctx
+}
+
+export function ToastProvider({ children }: { children: ReactNode }) {
+    const [items, setItems] = useState<ToastItem[]>([])
+    const idRef = useRef(1)
+    
+    const show = (message: string, type: ToastItem['type'] = 'info') => {
+        const id = idRef.current++
+        setItems(list => [{ id, message, type }, ...list].slice(0, 5))
+        setTimeout(() => setItems(list => list.filter(x => x.id !== id)), 3000)
+    }
+    
+    const toast = (props: ToastProps) => {
+        const message = props.title ? `${props.title}${props.description ? ': ' + props.description : ''}` : props.description || ''
+        const type = props.variant === 'destructive' ? 'error' : 'info'
+        show(message, type)
+    }
+
+    return (
+        <ToastContext.Provider value={{ show, toast }}>
+            {children}
+            <div className="fixed bottom-4 right-4 z-50 space-y-2 w-80 pointer-events-none">
+                {items.map(t => (
+                    <div key={t.id} className={`
+                        pointer-events-auto shadow-lg rounded-lg p-3 border text-sm font-medium animate-in slide-in-from-right-full
+                        ${t.type === 'error' ? 'bg-red-950/90 border-red-500 text-red-200' : 
+                          t.type === 'warn' ? 'bg-yellow-950/90 border-yellow-500 text-yellow-200' : 
+                          'bg-gray-900/90 border-gray-700 text-gray-100'}
+                    `}>
+                        {t.message}
+                    </div>
+                ))}
+            </div>
+        </ToastContext.Provider>
+    )
+}
