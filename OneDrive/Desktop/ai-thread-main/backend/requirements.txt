@@ -2,12 +2,16 @@ fastapi==0.115.0
 uvicorn[standard]==0.30.6
 python-dotenv==1.0.1
 pydantic==2.9.2
+pydantic-settings
 SQLAlchemy==2.0.35
 aiosqlite==0.20.0
 websockets==12.0
 httpx==0.27.2
 dnspython==2.6.1
-psutil==6.0.0
+psutil>=5.9.0
 pefile==2023.2.7
 yara-python==4.5.1
 python-multipart==0.0.9
+python-whois==0.9.4
+requests
+aiohttp
